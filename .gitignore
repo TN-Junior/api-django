@@ -2,9 +2,6 @@
 venv/
 __pycache__/
 
-# Banco de dados SQLite
-db.sqlite3
-
 
 
 # Logs e cache do Django
