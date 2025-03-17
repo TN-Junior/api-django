@@ -3,6 +3,8 @@ from django.utils.timezone import now
 from .models import SelicRate
 from .serializers import SelicRateSerializer
 from .permissions import ReadOnlyOrAuthenticated  # Importando a permissão personalizada
+from django.shortcuts import render
+
 
 class SelicRateViewSet(viewsets.ModelViewSet):
     """

@@ -10,8 +10,9 @@ services:
       MYSQL_USER: django_user
       MYSQL_PASSWORD: django_password
       MYSQL_ROOT_PASSWORD: root_password
+      HOST: 'db'
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
 
