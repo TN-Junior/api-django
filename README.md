@@ -153,3 +153,32 @@ Para limpar os volumes (⚠️ Isso apagará os dados do banco):
 ```sh
 docker-compose down -v
 ```
+✅ 1. Verifica se o superuser existe no banco de dados, execute:
+```bash
+docker-compose exec web python manage.py shell
+````
+E dentro do shell do Django, tente encontrar o usuário:
+```bash
+from django.contrib.auth import get_user_model
+User = get_user_model()
+User.objects.all()
+```
+Se não houver usuários listados, crie um usuário admin:
+```bash
+User.objects.create_superuser('admin', 'admin@example.com', 'admin123')
+```
+
+✅ 2. Verifique se o usuário está ativo
+Mesmo que o usuário exista, ele pode estar inativo. Para verificar:
+```bash
+user = User.objects.get(username="admin")
+print(user.is_active)
+```
+Se False, ative o usuário:
+```bash
+user.is_active = True
+user.save()
+```
+Agora tente autenticar novamente.
+
+
