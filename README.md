@@ -64,6 +64,71 @@ Se necessário, crie um superusuário para acessar o Django Admin:
 ```sh
 docker-compose exec web python manage.py createsuperuser
 ```
+### 🔑 Autenticação JWT no Postman
+Após criar o superusuário, você pode obter o token de autenticação JWT no Postman para acessar as rotas protegidas da API.
+
+**1️⃣ Acesse a rota de obtenção do token**
+- Abra o Postman.
+- Selecione o método POST.
+- No campo de URL, insira:
+```bash
+http://127.0.0.1:8000/api/token/
+```
+- Vá até a aba Body, selecione raw e escolha JSON.
+- Insira o seguinte JSON no corpo da requisição:
+```bash
+{
+    "username": "admin",
+    "password": "admin123"
+}
+```
+**2️⃣ Enviar a requisição**
+- Clique no botão Send.
+- Se as credenciais estiverem corretas, você receberá uma resposta semelhante a esta:
+```bash
+{
+    "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+```
+**3️⃣ Utilizar o token para acessar rotas protegidas**
+- Copie o valor de "access" (token de acesso).
+- No Postman, vá até a aba Authorization.
+- Selecione o tipo Bearer Token.
+- Cole o token copiado no campo.
+
+### 🔄 Atualizando o Token de Autenticação JWT no Postman
+Se o token de acesso (access) expirar, você pode obter um novo sem precisar refazer o login, usando o refresh token.
+
+**🔹 Passo 1: Abrir o Postman**
+Abra o Postman e selecione a opção "New Request".
+
+**🔹 Passo 2: Configurar a Requisição**
+1. Método: POST
+2. URL da API:
+```bash
+http://127.0.0.1:8000/api/token/refresh/
+```
+3. Cabeçalhos (Headers):
+- Content-Type: application/json
+
+**🔹 Passo 3: Enviar o Refresh Token**
+Na aba Body, selecione raw e adicione o seguinte JSON:
+```bash
+{
+    "refresh": "SEU_REFRESH_TOKEN_AQUI"
+}
+```
+Em seguida, clique no botão "Send".
+
+**🔹 Passo 4: Receber um Novo Token**
+Se o refresh token for válido, a API retornará uma nova resposta contendo um novo token de acesso:
+```bash
+{
+    "access": "NOVO_ACCESS_TOKEN_AQUI"
+}
+```
+Agora, utilize esse novo token access para continuar autenticado na API.
 
 ### **3️⃣ Coletar dados da API**
 Para buscar as taxas Selic e armazená-las no banco de dados, execute:
@@ -88,3 +153,32 @@ Para limpar os volumes (⚠️ Isso apagará os dados do banco):
 ```sh
 docker-compose down -v
 ```
+✅ 1. Verifica se o superuser existe no banco de dados, execute:
+```bash
+docker-compose exec web python manage.py shell
+````
+E dentro do shell do Django, tente encontrar o usuário:
+```bash
+from django.contrib.auth import get_user_model
+User = get_user_model()
+User.objects.all()
+```
+Se não houver usuários listados, crie um usuário admin:
+```bash
+User.objects.create_superuser('admin', 'admin@example.com', 'admin123')
+```
+
+✅ 2. Verifique se o usuário está ativo
+Mesmo que o usuário exista, ele pode estar inativo. Para verificar:
+```bash
+user = User.objects.get(username="admin")
+print(user.is_active)
+```
+Se False, ative o usuário:
+```bash
+user.is_active = True
+user.save()
+```
+Agora tente autenticar novamente.
+
+
