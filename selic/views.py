@@ -1,23 +1,18 @@
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from django.shortcuts import render
 from django.utils.timezone import now
 from .models import SelicRate
 from .serializers import SelicRateSerializer
+from .permissions import ReadOnlyOrAuthenticated  # Importando a permissão personalizada
 
-# Definição da ViewSet corretamente sem imports circulares
 class SelicRateViewSet(viewsets.ModelViewSet):
     """
     ViewSet para listar e gerenciar taxas Selic.
-    Apenas usuários autenticados podem modificar os dados.
+    Permite GET para todos, mas POST, PUT e DELETE exigem autenticação.
     """
     serializer_class = SelicRateSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [ReadOnlyOrAuthenticated]  # Aplicando a permissão personalizada
 
     def get_queryset(self):
-        """
-        Retorna apenas taxas Selic com datas válidas, ordenadas por data decrescente.
-        """
         return SelicRate.objects.filter(data__lte=now()).order_by('-data')
 
 # Função index para a página inicial
