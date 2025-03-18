@@ -144,26 +144,6 @@ docker-compose exec web python manage.py runserver 0.0.0.0:8000
 Acesse a API no navegador:
 http://localhost:8000
 
-# Testes da API Taxa Selic
-
-Este repositório contém testes automatizados para a API de Taxa Selic, utilizando Django REST Framework.
-
-## Estrutura dos Testes
-Os testes estão divididos em três arquivos:
-- `test_models.py`: Valida o modelo `SelicRate`.
-- `test_permissions.py`: Testa permissões de usuários na API.
-- `test_views.py`: Verifica as operações da API (CRUD).
-
-## Como Executar os Testes
-```sh
-# Executar todos os testes
-docker-compose exec web python manage.py test
-
-# Executar testes específicos
-docker-compose exec web python manage.py test selic.tests.test_models
-docker-compose exec web python manage.py test selic.tests.test_permissions
-docker-compose exec web python manage.py test selic.tests.test_views
-```
 
 ## Comandos úteis
 Se precisar parar os containers:
@@ -201,6 +181,27 @@ user.is_active = True
 user.save()
 ```
 Agora tente autenticar novamente.
+
+# Testes da API Taxa Selic
+
+Este repositório contém testes automatizados para a API de Taxa Selic, utilizando Django REST Framework.
+
+## Estrutura dos Testes
+Os testes estão divididos em três arquivos:
+- `test_models.py`: Valida o modelo `SelicRate`.
+- `test_permissions.py`: Testa permissões de usuários na API.
+- `test_views.py`: Verifica as operações da API (CRUD).
+
+## Como Executar os Testes
+```sh
+# Executar todos os testes
+docker-compose exec web python manage.py test
+
+# Executar testes específicos
+docker-compose exec web python manage.py test selic.tests.test_models
+docker-compose exec web python manage.py test selic.tests.test_permissions
+docker-compose exec web python manage.py test selic.tests.test_views
+```
 
 ## Resultados dos Testes
 ### 1. Testes de Modelos (`test_models.py`)
