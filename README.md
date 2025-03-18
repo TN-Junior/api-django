@@ -144,6 +144,27 @@ docker-compose exec web python manage.py runserver 0.0.0.0:8000
 Acesse a API no navegador:
 http://localhost:8000
 
+# Testes da API Taxa Selic
+
+Este repositório contém testes automatizados para a API de Taxa Selic, utilizando Django REST Framework.
+
+## Estrutura dos Testes
+Os testes estão divididos em três arquivos:
+- `test_models.py`: Valida o modelo `SelicRate`.
+- `test_permissions.py`: Testa permissões de usuários na API.
+- `test_views.py`: Verifica as operações da API (CRUD).
+
+## Como Executar os Testes
+```sh
+# Executar todos os testes
+docker-compose exec web python manage.py test
+
+# Executar testes específicos
+docker-compose exec web python manage.py test selic.tests.test_models
+docker-compose exec web python manage.py test selic.tests.test_permissions
+docker-compose exec web python manage.py test selic.tests.test_views
+```
+
 ## Comandos úteis
 Se precisar parar os containers:
 ```sh
@@ -180,5 +201,33 @@ user.is_active = True
 user.save()
 ```
 Agora tente autenticar novamente.
+
+## Resultados dos Testes
+### 1. Testes de Modelos (`test_models.py`)
+- ✅ Criação de taxa Selic.
+- ✅ Restrição de unicidade para datas.
+- ✅ Representação em string correta.
+
+### 2. Testes de Permissões (`test_permissions.py`)
+- ✅ Usuário comum não pode deletar taxa.
+- ✅ Administrador pode deletar taxa.
+
+### 3. Testes de Views (`test_views.py`)
+- ✅ Listagem das taxas.
+- ✅ Bloqueio de criação sem autenticação.
+- ✅ Criação permitida para usuários autenticados.
+- ✅ Bloqueio de exclusão por usuários não autenticados.
+- ✅ Exclusão permitida para administradores.
+
+## Imagens dos Testes
+Resultados capturados:
+![Testes de Views](https://github.com/user-attachments/assets/f1cebda5-962c-4b70-957d-ceec0be0713a)
+
+![Testes de Modelos](https://github.com/user-attachments/assets/7b0b7087-8200-4151-bc64-f045fa19d5fd)
+
+![Testes de Permissões](https://github.com/user-attachments/assets/a1b30a28-04d3-4b13-98b0-41911d6489d6)
+
+
+Os testes foram bem-sucedidos, garantindo que a API funciona conforme esperado.
 
 
