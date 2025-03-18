@@ -96,6 +96,43 @@ http://127.0.0.1:8000/api/token/
 - No Postman, vá até a aba Authorization.
 - Selecione o tipo Bearer Token.
 - Cole o token copiado no campo.
+```bash
+Authorization: Bearer "token"
+```
+## **Criando uma nova taxa Selic (POST)**
+1. Escolha o método POST.
+2. Digite a URL: http://127.0.0.1:8000/api/selic/
+3. Acesse a aba "Headers" e adicione:
+- Content-Type: application/json
+4. Acesse a aba "Body", selecione raw e insira o JSON:
+```bash
+{
+  "data": "2025-03-18",
+  "valor": "13.21"
+}
+```
+5. Clique em "Send".
+
+## **Atualizando uma taxa Selic (PUT)**
+1. Escolha o método PUT.
+2. Digite a URL: http://127.0.0.1:8000/api/selic/9726/
+3. Acesse a aba "Headers" e adicione:
+- Content-Type: application/json
+4. Acesse a aba "Body", selecione raw e insira o JSON:
+```bash
+{
+  "data": "2025-03-18",
+  "valor": "13.50"
+}
+```
+5. Clique em "Send".
+
+## **Deletando uma taxa Selic (DELETE)**
+1. Escolha o método DELETE.
+2. Digite a URL: http://127.0.0.1:8000/api/selic/9726/  
+
+4. Clique em "Send".
+
 
 ### 🔄 Atualizando o Token de Autenticação JWT no Postman
 Se o token de acesso (access) expirar, você pode obter um novo sem precisar refazer o login, usando o refresh token.
@@ -129,6 +166,12 @@ Se o refresh token for válido, a API retornará uma nova resposta contendo um n
 }
 ```
 Agora, utilize esse novo token access para continuar autenticado na API.
+
+
+
+
+Esses comandos permitem manipular os registros da API de forma segura, garantindo que apenas usuários autorizados realizem modificações.
+
 
 ### **3️⃣ Coletar dados da API**
 Para buscar as taxas Selic e armazená-las no banco de dados, execute:
