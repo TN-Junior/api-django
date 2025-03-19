@@ -1,5 +1,16 @@
 # **API Django - Taxa Selic**
 
+## *Sumário*
+- *📌 Visão Geral*
+- *⚙️ Configuração e Instalação*
+- *🚀 Executando o Projeto*
+- *🔑 Autenticação JWT*
+- *📡 Coletar dados da API*
+- *🖥️ Rodar o servidor Django*
+- *🛠️ Comandos úteis*
+- *🧪 Testes da API Taxa Selic*
+- *📊 Resultados dos Testes*
+
 ## **Visão Geral**
 Este projeto é uma API desenvolvida em Django para buscar e armazenar as taxas Selic em um banco de dados MySQL. A aplicação utiliza **Docker** e **Docker Compose** para facilitar a configuração e execução do ambiente, garantindo portabilidade e escalabilidade.
 
@@ -64,7 +75,7 @@ Se necessário, crie um superusuário para acessar o Django Admin:
 ```sh
 docker-compose exec web python manage.py createsuperuser
 ```
-### 🔑 Autenticação JWT no Postman
+## 🔑 Autenticação JWT no Postman
 Após criar o superusuário, você pode obter o token de autenticação JWT no Postman para acessar as rotas protegidas da API.
 
 **1️⃣ Acesse a rota de obtenção do token**
@@ -99,7 +110,7 @@ http://127.0.0.1:8000/api/token/
 ```bash
 Authorization: Bearer "token"
 ```
-## **Criando uma nova taxa Selic (POST)**
+### **Criando uma nova taxa Selic (POST)**
 1. Escolha o método POST.
 2. Digite a URL: http://127.0.0.1:8000/api/selic/
 3. Acesse a aba "Headers" e adicione:
@@ -113,7 +124,7 @@ Authorization: Bearer "token"
 ```
 5. Clique em "Send".
 
-## **Atualizando uma taxa Selic (PUT)**
+### **Atualizando uma taxa Selic (PUT)**
 1. Escolha o método PUT.
 2. Digite a URL: http://127.0.0.1:8000/api/selic/9726/
 3. Acesse a aba "Headers" e adicione:
@@ -127,7 +138,7 @@ Authorization: Bearer "token"
 ```
 5. Clique em "Send".
 
-## **Deletando uma taxa Selic (DELETE)**
+### **Deletando uma taxa Selic (DELETE)**
 1. Escolha o método DELETE.
 2. Digite a URL: http://127.0.0.1:8000/api/selic/9726/  
 
@@ -173,13 +184,13 @@ Agora, utilize esse novo token access para continuar autenticado na API.
 Esses comandos permitem manipular os registros da API de forma segura, garantindo que apenas usuários autorizados realizem modificações.
 
 
-### **3️⃣ Coletar dados da API**
+## ** Coletar dados da API**
 Para buscar as taxas Selic e armazená-las no banco de dados, execute:
 ```sh
 docker-compose exec web python manage.py fetch_selic
 ```
 
-### **4️⃣ Rodar o servidor Django**
+## ** Rodar o servidor Django**
 Agora, inicie o servidor da API:
 ```sh
 docker-compose exec web python manage.py runserver 0.0.0.0:8000
@@ -225,7 +236,7 @@ user.save()
 ```
 Agora tente autenticar novamente.
 
-# Testes da API Taxa Selic
+## Testes da API Taxa Selic
 
 Este repositório contém testes automatizados para a API de Taxa Selic, utilizando Django REST Framework.
 
