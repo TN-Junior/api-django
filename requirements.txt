@@ -12,5 +12,6 @@ tzdata==2025.1
 urllib3==2.3.0
 mysqlclient==2.2.7
 python-dotenv==1.0.1
-djangorestframework_simplejw==5.5.0
+djangorestframework-simplejwt==5.5.0
+
 

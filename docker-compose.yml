@@ -10,24 +10,34 @@ services:
       MYSQL_USER: django_user
       MYSQL_PASSWORD: django_password
       MYSQL_ROOT_PASSWORD: root_password
-      HOST: 'db'
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     ports:
       - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 5
+      timeout: 5s
 
   web:
     build: .
     container_name: django_app
     restart: always
     depends_on:
-      - db
+      db:
+        condition: service_healthy  # Espera o MySQL ficar pronto antes de iniciar o Django
     ports:
       - "8000:8000"
     volumes:
       - .:/app
     environment:
       - DATABASE_URL=mysql://django_user:django_password@db/django_db
+      - DJANGO_DB_HOST=db
+      - DJANGO_DB_NAME=django_db
+      - DJANGO_DB_USER=django_user
+      - DJANGO_DB_PASSWORD=django_password
 
 volumes:
   mysql_data:
