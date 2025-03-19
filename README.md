@@ -184,13 +184,13 @@ Agora, utilize esse novo token access para continuar autenticado na API.
 Esses comandos permitem manipular os registros da API de forma segura, garantindo que apenas usuários autorizados realizem modificações.
 
 
-## ** Coletar dados da API**
+## **Coletar dados da API**
 Para buscar as taxas Selic e armazená-las no banco de dados, execute:
 ```sh
 docker-compose exec web python manage.py fetch_selic
 ```
 
-## ** Rodar o servidor Django**
+## **Rodar o servidor Django**
 Agora, inicie o servidor da API:
 ```sh
 docker-compose exec web python manage.py runserver 0.0.0.0:8000
